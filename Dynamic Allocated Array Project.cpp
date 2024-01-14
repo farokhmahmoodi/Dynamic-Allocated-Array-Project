@@ -26,7 +26,7 @@ Part 3) Finally, write a function that takes in two integer arrays and their siz
 This function should then create and allocate an array inside the function of the same size as the 
 largest of these two arrays.The function should then go through both arrays starting at the lowest index.
 At each index, compare their values and put the highest of these values in the 3rd array that we created.
-If one array isnâ€™t large enough, the other array will always win at those indices.Output this array. Sort this 
+If one array isn’t large enough, the other array will always win at those indices.Output this array. Sort this 
 3rd array using selection sort and then output the results to the screen again.This array does not need to be 
 returned to the main body.
 
@@ -63,6 +63,8 @@ void print_array(const int[], int);
 int* shuffle_array(const int[], int);
 int* createOddArray(const int[], int, int&);
 int* createEvenArray(const int[], int, int&);
+void array_war(int*, int, int*, int);
+void sort_array(int*, int);
 
 int main()
 {
@@ -90,7 +92,7 @@ int main()
     int* even_arr = createEvenArray(shuffled_arr, size, evenSize);
     cout << "Contents of even numbers array below." << endl;
     print_array(even_arr, evenSize);
-
+    array_war(odd_arr, oddSize, even_arr, evenSize);
 
 
     return 0;
@@ -171,4 +173,51 @@ int* createEvenArray(const int a[], int size, int& evenSize)
     }
 
     return even;
+}
+
+void array_war(int* odd, int oddSize, int* even, int evenSize)
+{
+    int* win = nullptr, winSize = 0;
+
+    if (oddSize > evenSize)
+        winSize = oddSize;
+    else if (evenSize > oddSize)
+        winSize = evenSize;
+    win = new int[winSize];
+    for (int i = 0; i < winSize; i++)
+    {
+        if (*(odd + i) > *(even + i))
+            *(win + i) = *(odd + i);
+        else if (*(even + i) > *(odd + i))
+            *(win + i) = *(even + i);
+    }
+
+    cout << "Contents of Fight winning array below." << endl;
+    print_array(win, winSize);
+    sort_array(win, winSize);
+    cout << "Contents of sorted Fight winning array below." << endl;
+    print_array(win, winSize);
+}
+
+void sort_array(int* a, int size)
+{
+    int minIndex;
+    int minValue;
+
+    for (int start = 0; start < (size - 1); start++)
+    {
+        minIndex = start;
+        minValue = *(a + start);
+        for (int index = start + 1; index < size; index++)
+        {
+            if (*(a + index) < minValue)
+            {
+                minValue = *(a + index);
+                minIndex = index;
+            }
+        }
+        int temp = *(a + minIndex);   //swap smallest value in array with starting value in array
+        *(a + minIndex) = *(a + start);
+        *(a + start) = temp;
+    }
 }
