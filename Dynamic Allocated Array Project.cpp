@@ -26,7 +26,7 @@ Part 3) Finally, write a function that takes in two integer arrays and their siz
 This function should then create and allocate an array inside the function of the same size as the 
 largest of these two arrays.The function should then go through both arrays starting at the lowest index.
 At each index, compare their values and put the highest of these values in the 3rd array that we created.
-If one array isn’t large enough, the other array will always win at those indices.Output this array. Sort this 
+If one array isnâ€™t large enough, the other array will always win at those indices.Output this array. Sort this 
 3rd array using selection sort and then output the results to the screen again.This array does not need to be 
 returned to the main body.
 
@@ -57,10 +57,49 @@ To shuffle an array a of n elements (indices 0..n-1):
 #include <iostream>
 using namespace std;
 
+void initialize_array(int[], int);
+void print_array(const int[], int);
+int* shuffle_array(const int[], int);
+
 int main()
 {
-    
+    int* a = nullptr, *b = nullptr, size;
 
+    do
+    {
+        cout << "Enter size of array (from 1 to 52) to work with:";
+        cin >> size;
+        if (size < 1 || size > 52)
+            cout << "Error. Array size should be between 1 and 52." << endl;
+    } while (size < 1 || size > 52);
+    a = new int[size];
+    initialize_array(a, size);
+    print_array(a, size);
+    b = shuffle_array(a, size);
+
+
+
+
+    delete[] a;
+    a = nullptr;
 
     return 0;
+}
+
+void initialize_array(int a[], int size)
+{
+    for (int i = 0; i < size; i++)
+        *(a + i) = i;
+}
+
+void print_array(const int a[], int size)
+{
+    for (int i = 0; i < size; i++)
+        cout << *(a + i) << " ";
+    cout << endl;
+}
+
+int* shuffle_array(const int a[], int size)
+{
+    
 }
