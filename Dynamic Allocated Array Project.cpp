@@ -26,7 +26,7 @@ Part 3) Finally, write a function that takes in two integer arrays and their siz
 This function should then create and allocate an array inside the function of the same size as the 
 largest of these two arrays.The function should then go through both arrays starting at the lowest index.
 At each index, compare their values and put the highest of these values in the 3rd array that we created.
-If one array isn’t large enough, the other array will always win at those indices.Output this array. Sort this 
+If one array isnâ€™t large enough, the other array will always win at those indices.Output this array. Sort this 
 3rd array using selection sort and then output the results to the screen again.This array does not need to be 
 returned to the main body.
 
@@ -184,7 +184,7 @@ void array_war(int* odd, int oddSize, int* even, int evenSize)
     else if (evenSize > oddSize)
         winSize = evenSize;
     else                //if both odd and even arrays are same size
-        winSize = oddSize;
+        winSize = evenSize;
     win = new int[winSize];
     for (int i = 0; i < winSize; i++)
     {
