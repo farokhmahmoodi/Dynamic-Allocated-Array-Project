@@ -26,7 +26,7 @@ Part 3) Finally, write a function that takes in two integer arrays and their siz
 This function should then create and allocate an array inside the function of the same size as the 
 largest of these two arrays.The function should then go through both arrays starting at the lowest index.
 At each index, compare their values and put the highest of these values in the 3rd array that we created.
-If one array isn’t large enough, the other array will always win at those indices.Output this array. Sort this 
+If one array isnâ€™t large enough, the other array will always win at those indices.Output this array. Sort this 
 3rd array using selection sort and then output the results to the screen again.This array does not need to be 
 returned to the main body.
 
@@ -62,10 +62,11 @@ void initialize_array(int[], int);
 void print_array(const int[], int);
 int* shuffle_array(const int[], int);
 int* createOddArray(const int[], int, int&);
+int* createEvenArray(const int[], int, int&);
 
 int main()
 {
-    int* a = nullptr, *b = nullptr, size;
+    int size, oddSize = 0, evenSize = 0;
 
     do
     {
@@ -74,15 +75,21 @@ int main()
         if (size < 1 || size > 52)
             cout << "Error. Array size should be between 1 and 52." << endl;
     } while (size < 1 || size > 52);
-    a = new int[size];
-    initialize_array(a, size);
+    int *original_arr = new int[size];
+    initialize_array(original_arr, size);
     cout << "Contents of newly created array below." << endl;
-    print_array(a, size);
-    b = shuffle_array(a, size);
+    print_array(original_arr, size);
+    int *shuffled_arr = shuffle_array(original_arr, size);
     cout << "Contents of shuffled array below." << endl;
-    print_array(b, size);
+    print_array(shuffled_arr, size);
     cout << "Contents of original array below." << endl;
-    print_array(a, size);
+    print_array(original_arr, size);
+    int* odd_arr = createOddArray(shuffled_arr, size, oddSize);
+    cout << "Contents of odd numbers array below." << endl;
+    print_array(odd_arr, oddSize);
+    int* even_arr = createEvenArray(shuffled_arr, size, evenSize);
+    cout << "Contents of even numbers array below." << endl;
+    print_array(even_arr, evenSize);
 
 
 
@@ -122,8 +129,46 @@ int* shuffle_array(const int a[], int size)
     return shuffled_arr;
 }
 
-int* createOddArray(const int[], int, int&)
+int* createOddArray(const int a[], int size, int& oddSize)
 {
+    for (int i = 0; i < size; i++)
+    {
+        if (a[i] % 2 != 0)
+        {
+            oddSize++;
+        }
+    }
+    int* odd = new int[oddSize];
+    for (int i = 0, y = 0; i < size; i++)
+    {
+        if (a[i] % 2 != 0)
+        {
+            *(odd + y) = a[i];
+            y++;
+        }
+    }
 
+    return odd;
+}
 
+int* createEvenArray(const int a[], int size, int& evenSize)
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (a[i] % 2 == 0)
+        {
+            evenSize++;
+        }
+    }
+    int* even = new int[evenSize];
+    for (int i = 0, y = 0; i < size; i++)
+    {
+        if (a[i] % 2 == 0)
+        {
+            *(even + y) = a[i];
+            y++;
+        }
+    }
+
+    return even;
 }
