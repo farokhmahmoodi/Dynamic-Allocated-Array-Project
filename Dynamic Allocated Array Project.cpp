@@ -26,7 +26,7 @@ Part 3) Finally, write a function that takes in two integer arrays and their siz
 This function should then create and allocate an array inside the function of the same size as the 
 largest of these two arrays.The function should then go through both arrays starting at the lowest index.
 At each index, compare their values and put the highest of these values in the 3rd array that we created.
-If one array isnâ€™t large enough, the other array will always win at those indices.Output this array. Sort this 
+If one array isn’t large enough, the other array will always win at those indices.Output this array. Sort this 
 3rd array using selection sort and then output the results to the screen again.This array does not need to be 
 returned to the main body.
 
@@ -55,11 +55,13 @@ To shuffle an array a of n elements (indices 0..n-1):
        exchange a[j] and a[i]*/
 
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
 void initialize_array(int[], int);
 void print_array(const int[], int);
 int* shuffle_array(const int[], int);
+int* createOddArray(const int[], int, int&);
 
 int main()
 {
@@ -74,14 +76,15 @@ int main()
     } while (size < 1 || size > 52);
     a = new int[size];
     initialize_array(a, size);
+    cout << "Contents of newly created array below." << endl;
     print_array(a, size);
     b = shuffle_array(a, size);
+    cout << "Contents of shuffled array below." << endl;
+    print_array(b, size);
+    cout << "Contents of original array below." << endl;
+    print_array(a, size);
 
 
-
-
-    delete[] a;
-    a = nullptr;
 
     return 0;
 }
@@ -101,5 +104,26 @@ void print_array(const int a[], int size)
 
 int* shuffle_array(const int a[], int size)
 {
+    int *shuffled_arr = new int[size];
+    unsigned seed = 0;
+    seed = time(0);
+    srand(seed);
     
+    for (int i = 0; i < size; i++)
+        *(shuffled_arr + i) = a[i];
+    for (int i = size - 1; i > 0; i--)
+    {
+        int j = rand() % i;
+        int temp = shuffled_arr[i];
+        shuffled_arr[i] = shuffled_arr[j];
+        shuffled_arr[j] = temp;   
+    }
+
+    return shuffled_arr;
+}
+
+int* createOddArray(const int[], int, int&)
+{
+
+
 }
