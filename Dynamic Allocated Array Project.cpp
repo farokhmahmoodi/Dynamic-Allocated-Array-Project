@@ -72,8 +72,12 @@ int main()
 
     do
     {
-        cout << "Enter size of array (from 1 to 52) to work with:";
-        cin >> size;
+        while (cout << "Enter size of array (from 1 to 52) to work with:"
+            && !(cin >> size)) {
+            cin.clear(); //clear bad input flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); //discard input
+            cout << "Invalid input for size of array." << endl;
+        }
         if (size < 1 || size > 52)
             cout << "Error. Array size should be between 1 and 52." << endl;
     } while (size < 1 || size > 52);
